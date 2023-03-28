@@ -47,8 +47,8 @@ const Sidebar = () => {
                 Dashboard
               </p>
               <NavLink
-                to="/ecommerce"
-                key="ecommerce"
+                to="/"
+                key="dashboard"
                 onClick={handleCloseSideBar}
                 style={({ isActive }) => ({
                   backgroundColor: isActive ? currentColor : '',
@@ -56,7 +56,7 @@ const Sidebar = () => {
                 className={({ isActive }) => (isActive ? activeLink : normalLink)}
               >
                 <FiShoppingBag />
-                <span className="capitalize ">ecommerce</span>
+                <span className="capitalize ">Dashborad</span>
               </NavLink>
             </div>
 
