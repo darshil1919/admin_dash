@@ -5,3 +5,6 @@ export { default as Customers } from './Customers';
 export { default as Category } from './Category';
 export { default as SubCategory } from './SubCategory';
 export { default as AddSubCategory } from './AddSubCategory';
+export { default as Login } from './Login';
+export { default as Error} from './Error';
+export { default as Dashboard} from './Dashboard';

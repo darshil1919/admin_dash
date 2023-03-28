@@ -78,7 +78,7 @@ export function AddCategory(props) {
       }),
   });
 
-  // const initialValues = {
+// const initialValues = {
   //   categoryName: '',
   //   description: '',
   //   image: '',
