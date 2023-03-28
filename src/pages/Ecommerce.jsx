@@ -1,18 +1,19 @@
-import React, { useEffect } from 'react';
-import { BsCurrencyDollar } from 'react-icons/bs';
+import React, { useEffect } from "react";
+import { BsCurrencyDollar } from "react-icons/bs";
 
-import { Button } from '../components';
-import { earningData } from '../data/dummy';
-import { useStateContext } from '../contexts/ContextProvider';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCategory } from '../store/action/categoryAction';
-import statuses from '../store/statuses';
-import Loading from '../components/small/Loading';
+import { Button, Footer, Navbar, Sidebar } from "../components";
+import { earningData } from "../data/dummy";
+import { useStateContext } from "../contexts/ContextProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategory } from "../store/action/categoryAction";
+import statuses from "../store/statuses";
+import Loading from "../components/small/Loading";
 
 // import ErrorMessage from '../components/ErrorMessage';
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Outlet } from "react-router";
 
 // const DropDown = ({ currentMode }) => (
 //   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
@@ -21,29 +22,55 @@ import 'react-toastify/dist/ReactToastify.css';
 // );
 
 const Ecommerce = () => {
-  const { currentColor } = useStateContext();
-  const {status, error} = useSelector((state) => {
-    return state.allCategory
-  })
-  const dispatch = useDispatch();
-  
+  // const { currentColor } = useStateContext();
+  const {
+    setCurrentColor,
+    setCurrentMode,
+    currentMode,
+    activeMenu,
+    currentColor,
+  } = useStateContext();
 
   useEffect(() => {
-    if(status === statuses.ERROR){
-      // console.log(error)
-      // toast('Wow so easy!');
-      // dispatch(clearError())
+    const currentThemeColor = localStorage.getItem("colorMode");
+    const currentThemeMode = localStorage.getItem("themeMode");
+    if (currentThemeColor && currentThemeMode) {
+      setCurrentColor(currentThemeColor);
+      setCurrentMode(currentThemeMode);
     }
-    dispatch(getCategory())
-  }, [dispatch, error])
-
-  if(status === statuses.LOADING){
-    return <Loading value={true} />
-    // return <h2>Loading.......</h2>
-  }
+  }, []);
 
   return (
-    <div className="mt-24">
+    <>
+      <div className={currentMode === "Dark" ? "dark" : ""}>
+        <div className="flex relative dark:bg-main-dark-bg">
+          {activeMenu ? (
+            <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
+              <Sidebar />
+            </div>
+          ) : (
+            <div className="w-0 dark:bg-secondary-dark-bg">
+              <Sidebar />
+            </div>
+          )}
+          <div
+            className={
+              activeMenu
+                ? "dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full  "
+                : "bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 "
+            }
+          >
+            <div>
+              <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
+                <Navbar />
+              </div>
+            </div>
+            <Outlet />
+            <Footer />
+          </div>
+        </div>
+        </div>
+        {/* <div className="mt-24">
       <div className="flex flex-wrap lg:flex-nowrap justify-center ">
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">
           <div className="flex justify-between items-center">
@@ -90,7 +117,8 @@ const Ecommerce = () => {
         </div>
       </div>
       <ToastContainer />
-    </div>
+    </div> */}
+    </>
   );
 };
 

@@ -75,7 +75,7 @@ export function AddCategory(props) {
     // images.forEach((image) => {
       myForm.append("image", image);
     // });
-    dispatch(addCategory(myForm));
+    // dispatch(addCategory(myForm));
   }
 
 
