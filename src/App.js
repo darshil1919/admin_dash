@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Navbar, Footer, Sidebar } from './components';
-import { Ecommerce, Orders, Employees, Customers, Category } from './pages';
+import { Ecommerce, Orders, Employees, Customers, Category, SubCategory, AddSubCategory } from './pages';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
@@ -56,7 +56,9 @@ const App = () => {
                 <Route path="/employees" element={<Employees />} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/category" element={<Category />} />
-
+                <Route exact path="/sub-category" element={<SubCategory />} />
+                <Route exact path={"/sub-category/add-subcategory"} element={<AddSubCategory />} />
+                <Route exact path={"/sub-category/edit-subcategory/:id"} element={<AddSubCategory />} />
               </Routes>
             </div>
             <Footer />

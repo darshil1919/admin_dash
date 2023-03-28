@@ -1,23 +1,18 @@
 import axios from "axios";
-import { setStatus, setAllCategory, setErrorMsg } from "../slice/categorySlice/allCategorySlice";
-import status from "../statuses";
+import { ALL_CATEGORY_REQUEST, ALL_CATEGORY_SUCCESS, ALL_CATEGORY_FAIL } from '../slice/categorySlice/allCategorySlice';
 
 export function getCategory() {
   return async (dispatch, getState) => {
     try {
-      dispatch(setStatus(status.LOADING));
+      dispatch(ALL_CATEGORY_REQUEST);
 
       const config = { headers: { "Content-Type": "application/json" } };
 
-      const { data } = await axios.get(`/api/v1/category/alldsfflj`, config);
-      console.log(data.data)
+      const { data } = await axios.get(`/api/v1/category/all`, config);
 
-      dispatch(setAllCategory(data.data));
-      dispatch(setStatus(status.SUCCESS));
+      dispatch(ALL_CATEGORY_SUCCESS(data.data));
     } catch (error) {
-      console.log(error)
-      dispatch(setStatus(status.ERROR));
-      dispatch(setErrorMsg(error.message));
+      dispatch(ALL_CATEGORY_FAIL(error.message));
     }
   };
 }
@@ -25,24 +20,41 @@ export function getCategory() {
 export function addCategory(categoryData) {
   return async (dispatch, getState) => {
     try {
-      // dispatch(setStatus(status.LOADING));
-      // for (const value of categoryData.values()) {
-      //   console.log(value);
-      // }
+      dispatch(ALL_CATEGORY_REQUEST);
 
       const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-    const { data } = await axios.post(`http://localhost:5000/api/v1/category/add`, categoryData, config);
-      console.log(data.data)
+      const { data } = await axios.post(`/api/v1/category/add`, categoryData, config);
+      console.log("all category->", data.data)
 
-      // dispatch(setAllCategory(data.data));
-      // dispatch(setStatus(status.SUCCESS));
     } catch (error) {
       console.log(error)
       // dispatch(setStatus(status.ERROR));
       // dispatch(setErrorMsg(error.message));
     }
   };
+}
+
+export const editCategory = async (editId, categoryData) => {
+  try {
+    // dispatch(setStatus(status.LOADING));
+    // for (const value of categoryData.values()) {
+    //   console.log(value);
+    // }
+    console.log("in edit category");
+
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
+
+    const data = await axios.put(`/api/v1/category/update/${editId}`, categoryData, config);
+    console.log("all category->", data.data)
+
+    // dispatch(setAllCategory(data.data));
+    // dispatch(setStatus(status.SUCCESS));
+  } catch (error) {
+    console.log(error)
+    // dispatch(setStatus(status.ERROR));
+    // dispatch(setErrorMsg(error.message));
+  }
 }
 
 // export function clearErrors(){
