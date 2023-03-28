@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const allSubCategorySlice = createSlice({
   name: 'allSubCategory',
   initialState: {
-    loading: true,
+    loading: false,
     allSubCategory: []
   },
   reducers: {

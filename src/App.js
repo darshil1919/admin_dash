@@ -17,8 +17,8 @@ const App = () => {
                   <Route path="/customers" element={<Customers />} />
                   <Route path="/category" element={<Category />} />
                   <Route exact path="/sub-category" element={<SubCategory />} />
-                  <Route exact path={"/sub-category/add-subcategory"} element={<AddSubCategory />} />
-                  <Route exact path={"/sub-category/edit-subcategory/:id"} element={<AddSubCategory />} />
+                  <Route exact path="/sub-category/add-subcategory" element={<AddSubCategory />} />
+                  <Route exact path="/sub-category/edit-subcategory/:id" element={<AddSubCategory />} />
                 </Route>
                 <Route path="*" element={<Error />} />
               </Routes>         

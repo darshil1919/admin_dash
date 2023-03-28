@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import admineSlice from './slice/adminSlice/admineSlice';
 import allCategorySlice from './slice/categorySlice/allCategorySlice';
 import allSubCategorySlice from './slice/subCategorySlice/allSubCategorySlice';
+import subCategoryDetailsSlice from './slice/subCategorySlice/subCategoryDetailsSlice';
 import subCategorySlice from './slice/subCategorySlice/subCategorySlice';
 
 
@@ -11,8 +12,11 @@ const store = configureStore({
 
         // category slice
         allCategory: allCategorySlice,
+
+        // subCategory slice
         allSubCategory: allSubCategorySlice,
-        subCategory: subCategorySlice,
+        subCategoryDetails: subCategoryDetailsSlice,
+        subCategory: subCategorySlice
     },
 });
 
