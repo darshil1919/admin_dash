@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
 import { useFormik } from 'formik';
 import { Formik, Form, Field } from 'formik';
 import * as yup from "yup";
@@ -42,12 +42,14 @@ export function AddCategory(props) {
   const dispatch = useDispatch();
 
   const { onClose, selectedValue, open, setOpen, recordForEdit, isEdit } = props;
+  const [preview, setPreview] = useState("");
 
   let initialValues = {
     categoryName: '',
     description: '',
     image: '',
   };
+
   if (isEdit) {
     console.log("recordForEdit->", recordForEdit);
     initialValues = {
@@ -57,12 +59,22 @@ export function AddCategory(props) {
     };
   }
 
-  // const handleClose = () => {
-  //   onClose(selectedValue);
+  const handleClose = (value) => {
+    onClose(value);
+  };
+
+  // const handleListItemClick = (value) => {
+  //   onClose(value);
   // };
 
-  const handleListItemClick = (value) => {
-    onClose(value);
+  const handleFileChange = (event, setFieldValue) => {
+    const file = event.target.files[0];
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    } else {
+      setPreview("");
+    }
+    setFieldValue("image", file);
   };
 
   const validationSchema = yup.object().shape({
@@ -70,22 +82,25 @@ export function AddCategory(props) {
     description: yup.string().required('description is required'),
     image: yup.mixed()
       .required('Image is required')
-      .test('fileFormat', 'only .jpeg .jpg and .png file supported.', (value) => {
-        if (value) {
-          return ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type);
+      .test('fileFormat', 'only .jpeg .jpg and .png file supported.',
+        (value) => {
+          if (isEdit) {
+            return true;
+          } else {
+            if (value) {
+              return ["image/jpeg", "image/jpg", "image/png"].includes(
+                value.type
+              );
+            }
+            return true;
+          }
         }
-        return true;
-      }),
+      ),
   });
-
-// const initialValues = {
-  //   categoryName: '',
-  //   description: '',
-  //   image: '',
-  // };
 
   const handleSubmit = (data) => {
     console.log("in submit->", data);
+    console.log("isEdit->", isEdit);
     if (!isEdit) {
       console.log("submit data->", data);
       const myForm = new FormData();
@@ -94,15 +109,21 @@ export function AddCategory(props) {
       myForm.append("image", data.image);
 
       dispatch(addCategory(myForm));
+      handleClose(false);
+
     } else {
       console.log("edit data->", data);
       const myForm = new FormData();
       myForm.append("categoryName", data.categoryName);
       myForm.append("description", data.description);
-      myForm.append("image", data.image);
+      if (preview) {
+        myForm.append("image", data.image);
+        console.log("in preview", preview);
+      }
       console.log("edit myForm->", myForm);
       let editId = recordForEdit?._id;
-      editCategory(editId, myForm);
+      dispatch(editCategory(editId, myForm));
+      handleClose(false);
     }
   };
 
@@ -116,7 +137,7 @@ export function AddCategory(props) {
             {isEdit ? "Edit Category" : "Add Category"}
           </div>
           <IconButton
-            onClick={() => { onClose(false) }}>
+            onClick={() => { handleClose(false) }}>
             <CloseIcon />
           </IconButton>
         </div>
@@ -172,24 +193,21 @@ export function AddCategory(props) {
                           fullWidth
                           name="image"
                           type="file"
-                          // {...console.log("field->", field)}
-                          // {...console.log("isEdit->", isEdit)}
-                          {...console.log("formik->", formik)}
-
-                          onChange={(event) => {
-                            const file = event.currentTarget.files[0];
-                            setFieldValue('image', file);
-                          }}
+                          // onChange={(event) => {
+                          //   const file = event.currentTarget.files[0];
+                          //   setFieldValue('image', file);
+                          // }}
+                          onChange={(event) => handleFileChange(event, setFieldValue)}
                           error={meta.touched && meta.error ? true : false}
                           helperText={meta.touched && meta.error ? meta.error : ''}
                         />
                       </div>
                       <div className="p-3 w-3/12">
-                        {field.value && (
-                          <div style={{ width: "75px", height: "75px" }}>
-                            <img className="h-16 w-24" src={isEdit ? `http://localhost:4000/image/categoryImages/${field.value}` : `${URL.createObjectURL(field.value)}`} alt="Selected Image" />
-                          </div>
-                        )}
+                        {/* {preview && ( */}
+                        <div style={{ width: "75px", height: "75px" }}>
+                          <img className="h-16 w-24" src={preview ? preview : `http://localhost:4000/image/categoryImages/${recordForEdit?.image}`} alt="category Image" />
+                        </div>
+                        {/* )} */}
                       </div>
                     </div>
                   )}
