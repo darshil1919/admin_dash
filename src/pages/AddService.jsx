@@ -484,6 +484,8 @@ const AddService = () => {
                                                   {({ field, form: { touched, errors }, meta }) => (
                                                     <TextField
                                                       fullWidth
+                                                      multiline
+                                                      rows={2}
                                                       id="answer"
                                                       label="answer"
                                                       type="text"

@@ -19,6 +19,7 @@ import { red } from '@mui/material/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategory, deleteCategory } from '../store/action/categoryAction';
 import { UPDATE_CATEGORY_RESET, DELETE_CATEGORY_RESET } from '../store/slice/categorySlice/categorySlice';
+import SimpleBackdrop from '../components/small/Loading';
 // import Loading from '../components/small/Loading';
 
 const Category = () => {
@@ -88,6 +89,7 @@ const Category = () => {
     <>
       {allCategoryLoader || categoryLoader || newCategoryLoader ? (
         <Loader />
+        // <SimpleBackdrop />
       ) : (
         <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
           {/* <Header category="Page" title="Orders" /> */}

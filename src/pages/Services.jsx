@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Header } from '../components';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -55,8 +56,9 @@ const Service = () => {
         <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
           {/* <Header category="Page" title="Orders" /> */}
           {/* <CategoryTable /> */}
-          <div className="py-3 px-2 flex justify-between align-middle">
-            <h3 className='font-bold'>Services</h3>
+          <div className="py-3 px-2 flex justify-between items-center">
+            {/* <h3 className='font-bold'>Services</h3> */}
+            <Header category="Page" title="Services" />
             <Button variant="contained" onClick={() => navigate('/service/add-service')}>+ Add New</Button>
           </div>
           <TableContainer component={Paper}>
