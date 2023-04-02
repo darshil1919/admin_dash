@@ -1,59 +1,59 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const subCategorySlice = createSlice({
-  name: 'subCategory',
+const serviceSlice = createSlice({
+  name: 'service',
   initialState: {
     loading: false,
-    subCategory: {}
+    service: {}
   },
   reducers: {
-    DELETE_SUBCATEGORY_REQUEST(state, action) { //1
+    DELETE_SERVICE_REQUEST(state, action) { //1
       return {
         ...state,
         loading: true,
       };
     },
-    UPDATE_SUBCATEGORY_REQUEST(state, action) { //2
+    UPDATE_SERVICE_REQUEST(state, action) { //2
       return {
         ...state,
         loading: true,
       };
     },
-    DELETE_SUBCATEGORY_SUCCESS(state, action) { //3
+    DELETE_SERVICE_SUCCESS(state, action) { //3
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
     },
-    UPDATE_SUBCATEGORY_SUCCESS(state, action) { //3
+    UPDATE_SERVICE_SUCCESS(state, action) { //3
       return {
         ...state,
         loading: false,
         isUpdated: action.payload,
       };
     },
-    DELETE_SUBCATEGORY_FAIL(state, action) {
+    DELETE_SERVICE_FAIL(state, action) {
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
     },
-    UPDATE_SUBCATEGORY_FAIL(state, action) {
+    UPDATE_SERVICE_FAIL(state, action) {
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
     },
-    DELETE_SUBCATEGORY_RESET(state, action) {
+    DELETE_SERVICE_RESET(state, action) {
       return {
         ...state,
         isDeleted: false,
       };
     },
-    UPDATE_SUBCATEGORY_RESET(state, action) {
+    UPDATE_SERVICE_RESET(state, action) {
       return {
         ...state,
         isUpdated: false,
@@ -68,15 +68,15 @@ const subCategorySlice = createSlice({
   }
 });
 
-export default subCategorySlice.reducer;
+export default serviceSlice.reducer;
 
 export const {
-  DELETE_SUBCATEGORY_REQUEST,
-  UPDATE_SUBCATEGORY_REQUEST,
-  DELETE_SUBCATEGORY_SUCCESS,
-  UPDATE_SUBCATEGORY_SUCCESS,
-  DELETE_SUBCATEGORY_FAIL,
-  UPDATE_SUBCATEGORY_FAIL,
-  DELETE_SUBCATEGORY_RESET,
-  UPDATE_SUBCATEGORY_RESET,
-  CLEAR_ERRORS } = subCategorySlice.actions;
+  DELETE_SERVICE_REQUEST,
+  UPDATE_SERVICE_REQUEST,
+  DELETE_SERVICE_SUCCESS,
+  UPDATE_SERVICE_SUCCESS,
+  DELETE_SERVICE_FAIL,
+  UPDATE_SERVICE_FAIL,
+  DELETE_SERVICE_RESET,
+  UPDATE_SERVICE_RESET,
+  CLEAR_ERRORS } = serviceSlice.actions;

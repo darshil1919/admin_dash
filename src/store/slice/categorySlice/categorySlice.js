@@ -1,59 +1,59 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const subCategorySlice = createSlice({
-  name: 'subCategory',
+const categorySlice = createSlice({
+  name: 'category',
   initialState: {
     loading: false,
-    subCategory: {}
+    category: {}
   },
   reducers: {
-    DELETE_SUBCATEGORY_REQUEST(state, action) { //1
+    DELETE_CATEGORY_REQUEST(state, action) { //1
       return {
         ...state,
         loading: true,
       };
     },
-    UPDATE_SUBCATEGORY_REQUEST(state, action) { //2
+    UPDATE_CATEGORY_REQUEST(state, action) { //2
       return {
         ...state,
         loading: true,
       };
     },
-    DELETE_SUBCATEGORY_SUCCESS(state, action) { //3
+    DELETE_CATEGORY_SUCCESS(state, action) { //3
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
     },
-    UPDATE_SUBCATEGORY_SUCCESS(state, action) { //3
+    UPDATE_CATEGORY_SUCCESS(state, action) { //3
       return {
         ...state,
         loading: false,
         isUpdated: action.payload,
       };
     },
-    DELETE_SUBCATEGORY_FAIL(state, action) {
+    DELETE_CATEGORY_FAIL(state, action) {
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
     },
-    UPDATE_SUBCATEGORY_FAIL(state, action) {
+    UPDATE_CATEGORY_FAIL(state, action) {
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
     },
-    DELETE_SUBCATEGORY_RESET(state, action) {
+    DELETE_CATEGORY_RESET(state, action) {
       return {
         ...state,
         isDeleted: false,
       };
     },
-    UPDATE_SUBCATEGORY_RESET(state, action) {
+    UPDATE_CATEGORY_RESET(state, action) {
       return {
         ...state,
         isUpdated: false,
@@ -68,15 +68,15 @@ const subCategorySlice = createSlice({
   }
 });
 
-export default subCategorySlice.reducer;
+export default categorySlice.reducer;
 
 export const {
-  DELETE_SUBCATEGORY_REQUEST,
-  UPDATE_SUBCATEGORY_REQUEST,
-  DELETE_SUBCATEGORY_SUCCESS,
-  UPDATE_SUBCATEGORY_SUCCESS,
-  DELETE_SUBCATEGORY_FAIL,
-  UPDATE_SUBCATEGORY_FAIL,
-  DELETE_SUBCATEGORY_RESET,
-  UPDATE_SUBCATEGORY_RESET,
-  CLEAR_ERRORS } = subCategorySlice.actions;
+  DELETE_CATEGORY_REQUEST,
+  UPDATE_CATEGORY_REQUEST,
+  DELETE_CATEGORY_SUCCESS,
+  UPDATE_CATEGORY_SUCCESS,
+  DELETE_CATEGORY_FAIL,
+  UPDATE_CATEGORY_FAIL,
+  DELETE_CATEGORY_RESET,
+  UPDATE_CATEGORY_RESET,
+  CLEAR_ERRORS } = categorySlice.actions;
