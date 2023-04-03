@@ -1,9 +1,26 @@
-import { Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
 import ErrorForm from '../components/small/ErrorForm';
+import { clearErrors, login } from '../store/action/adminAction';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const {error, loading, isAuthenticated} = useSelector((state) => state.admin);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(error){
+            console.log(error)
+            dispatch(clearErrors())
+        }
+        if (isAuthenticated) {
+            navigate("/")
+        }
+    }, [dispatch, error, isAuthenticated, navigate])
 
     const initialvalue = {
         email: "",
@@ -21,8 +38,7 @@ const Login = () => {
       })
 
     const handleSubmit = (e) => {
-        // e.preventDefault();
-        console.log("formData->", e);
+        dispatch(login(e))
     }
 
     return (

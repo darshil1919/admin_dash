@@ -5,9 +5,17 @@ import { Button } from '.';
 import { userProfileData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import avatar from '../data/avatar.jpg';
+import { logout } from '../store/action/adminAction';
+import { useDispatch } from 'react-redux';
 
 const UserProfile = () => {
+  const dispatch = useDispatch();
   const { currentColor } = useStateContext();
+
+  const onClickLogout = () => {
+    // console.log("logout")
+    dispatch(logout());
+  }
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
@@ -51,7 +59,7 @@ const UserProfile = () => {
           </div>
         ))}
       </div>
-      <div className="mt-5">
+      <div className="mt-5" onClick={onClickLogout}>
         <Button
           color="white"
           bgColor={currentColor}
