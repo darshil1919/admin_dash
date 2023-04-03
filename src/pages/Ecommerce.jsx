@@ -13,7 +13,8 @@ import Loading from "../components/small/Loading";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
+import { loadAdmin } from "../store/action/adminAction";
 
 // const DropDown = ({ currentMode }) => (
 //   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
@@ -23,6 +24,9 @@ import { Outlet } from "react-router";
 
 const Ecommerce = () => {
   // const { currentColor } = useStateContext();
+  // const dispatch = useDispatch();
+  // const { isAuthenticated, admin } = useSelector((state) => state.admin);
+
   const {
     setCurrentColor,
     setCurrentMode,
@@ -32,6 +36,8 @@ const Ecommerce = () => {
   } = useStateContext();
 
   useEffect(() => {
+    // dispatch(loadAdmin());
+
     const currentThemeColor = localStorage.getItem("colorMode");
     const currentThemeMode = localStorage.getItem("themeMode");
     if (currentThemeColor && currentThemeMode) {
