@@ -80,9 +80,10 @@ export function updateService(editId, payload) {
       const config = { headers: { "Content-Type": "multipart/form-data" } };
       let endpoint = `/api/v1/service/update?id=${editId}`;
       const { data } = await axios.post(endpoint, payload, config);
-      dispatch(UPDATE_SERVICE_SUCCESS(data.data));
 
-      toast.success(data.data);
+      console.log("data.data-->", data);
+      dispatch(UPDATE_SERVICE_SUCCESS(data.data));
+      toast.success(data.data.message);
 
     } catch (error) {
       dispatch(UPDATE_SERVICE_FAIL(error.message));
