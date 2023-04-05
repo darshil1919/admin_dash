@@ -1,0 +1,55 @@
+.customClass .e-float-text {
+    color: rgba(0, 0, 0, 0.6) !important;
+    font-size: 16px !important;
+}
+/* .e-float-input.e-control-wrapper label.e-float-text.e-label-bottom {
+    color: #1976d2 !important;
+    font-size: 14px !important;
+} */
+.customClass.e-icon-anim #label_dropdowntree {
+    color: #1976d2 !important;
+    font-size: 14px !important;
+}
+/* .customClass.e-show-text #label_dropdowntree {
+    color: #1976d2 !important;
+    font-size: 14px !important;
+} */
+
+.customClass .e-float-line { 
+    border-bottom: 1px solid #949494;
+}
+.customClass.e-icon-anim .e-float-line { 
+    border-bottom: none;
+}
+
+.customClass .e-float-line::after {
+    background: #1976d2 !important;
+}
+
+.customClass .e-float-line::before {
+    background: #1976d2 !important;
+}
+
+.customClass.e-icon-anim .e-float-line::after {
+    background: #1976d2 !important;
+}
+
+.customClass.e-icon-anim .e-float-line::before {
+    background: #1976d2 !important;
+}
+.customClass.e-show-text .e-float-line::after {
+    background: #1976d2 !important;
+}
+
+.customClass.e-show-text .e-float-line::before {
+    background: #1976d2 !important;
+}
+
+
+.customClass .e-treeview .e-list-item.e-active>.e-text-content .e-list-text {
+    color: rgba(0,0,0,.87)
+}
+
+.customClass .e-checkbox-wrapper .e-frame.e-check, .e-css.e-checkbox-wrapper .e-frame.e-check {
+    background-color: #1976d2 !important; 
+}

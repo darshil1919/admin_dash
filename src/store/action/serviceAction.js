@@ -16,14 +16,14 @@ import {
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-export function getService() {
+export function getService(payload) {
   return async (dispatch, getState) => {
     try {
       dispatch(ALL_SERVICE_REQUEST());
 
       const config = { headers: { "Content-Type": "application/json" } };
 
-      const { data } = await axios.post(`/api/v1/service/all`, config);
+      const { data } = await axios.post(`/api/v1/service/all`, payload, config);
       // console.log("data-->", data);
       dispatch(ALL_SERVICE_SUCCESS(data.data));
 
