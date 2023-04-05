@@ -6,12 +6,9 @@ import { useDispatch } from 'react-redux';
 
 // import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
-// import Avatar from '@mui/material/Avatar';
-// import List from '@mui/material/List';
-// import ListItem from '@mui/material/ListItem';
-// import ListItemAvatar from '@mui/material/ListItemAvatar';
-// import ListItemButton from '@mui/material/ListItemButton';
-// import ListItemText from '@mui/material/ListItemText';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -48,6 +45,7 @@ export function AddCategory(props) {
     categoryName: '',
     description: '',
     image: '',
+    isActive: '',
   };
 
   if (isEdit) {
@@ -56,6 +54,7 @@ export function AddCategory(props) {
       categoryName: recordForEdit?.categoryName,
       description: recordForEdit?.description,
       image: recordForEdit?.image,
+      isActive: recordForEdit?.isActive,
     };
   }
 
@@ -96,6 +95,7 @@ export function AddCategory(props) {
           }
         }
       ),
+    isActive: yup.boolean().required("is Active is required"),
   });
 
   const handleSubmit = (data) => {
@@ -107,6 +107,7 @@ export function AddCategory(props) {
       myForm.append("categoryName", data.categoryName);
       myForm.append("description", data.description);
       myForm.append("image", data.image);
+      myForm.append("isActive", data.isActive);
 
       dispatch(addCategory(myForm));
       handleClose(false);
@@ -116,6 +117,7 @@ export function AddCategory(props) {
       const myForm = new FormData();
       myForm.append("categoryName", data.categoryName);
       myForm.append("description", data.description);
+      myForm.append("isActive", data.isActive);
       if (preview) {
         myForm.append("image", data.image);
         console.log("in preview", preview);
@@ -203,15 +205,51 @@ export function AddCategory(props) {
                         />
                       </div>
                       <div className="p-3 w-3/12">
-                        {/* {preview && ( */}
-                        <div style={{ width: "75px", height: "75px" }}>
-                          <img className="h-16 w-24" src={preview ? preview : `http://localhost:4000/image/categoryImages/${recordForEdit?.image}`} alt="category Image" />
-                        </div>
-                        {/* )} */}
+                        {!isEdit && (
+                          <div style={{ width: "75px", height: "75px" }}>
+                            <img className="h-16 w-24" src={!preview ? '' : preview} alt="category Image" />
+                          </div>
+                        )}
+                        {isEdit && (
+                          <div style={{ width: "75px", height: "75px" }}>
+                            <img className="h-16 w-24" src={preview ? preview : `http://localhost:4000/image/categoryImages/${recordForEdit?.image}`} alt="category Image" />
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}
                 </Field>
+              </div>
+
+              <div className="pb-4">
+                <div className="flex items-center">
+                  <div className="font-bold mr-5">Is Active</div>
+                  <div>
+                    <RadioGroup
+                      name="isActive"
+                      value={formik.values.isActive}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      row
+                    >
+                      <FormControlLabel
+                        value="true"
+                        control={<Radio />}
+                        label="Yes"
+                        labelPlacement="end"
+                      />
+                      <FormControlLabel
+                        value="false"
+                        control={<Radio />}
+                        label="No"
+                        labelPlacement="end"
+                      />
+                    </RadioGroup>
+                    {formik.touched.isActive && formik.errors.isActive && (
+                      <div className="text-red-600 text-xs">{formik.errors.isActive}</div>
+                    )}
+                  </div>
+                </div>
               </div>
 
               {/* <button type="submit">Submit</button> */}

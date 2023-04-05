@@ -4,6 +4,9 @@ import _ from 'lodash';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import * as yup from "yup";
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
 import Lodder from '../components/Loader/Loader';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
@@ -63,6 +66,7 @@ const AddService = () => {
         answer: "",
       },
     ],
+    isActive: "",
   }
 
   const validationSchema = yup.object().shape({
@@ -104,7 +108,8 @@ const AddService = () => {
         question: yup.string().required("Question is required"),
         answer: yup.string().required("Answer is required"),
       })
-    )
+    ),
+    isActive: yup.boolean().required("is Active is required"),
   });
 
   const handleFileChange = (event, setFieldValue) => {
@@ -131,6 +136,7 @@ const AddService = () => {
       myForm.append("included", data.included);
       myForm.append("excluded", data.excluded);
       myForm.append("FAQs", JSON.stringify(data.FAQs));
+      myForm.append("isActive", data.isActive);
       console.log("myForm-->", myForm);
       dispatch(addService(myForm));
       // console.log("subCategory==============->", subCategory);
@@ -146,6 +152,7 @@ const AddService = () => {
       myForm.append("included", data.included);
       myForm.append("excluded", data.excluded);
       myForm.append("FAQs", JSON.stringify(data.FAQs));
+      myForm.append("isActive", data.isActive);
       console.log("myForm-->", myForm);
       if (preview) {
         myForm.append("image", data.image);
@@ -191,6 +198,7 @@ const AddService = () => {
                           included: service?.included,
                           excluded: service?.excluded,
                           FAQs: service?.FAQs,
+                          isActive: service?.isActive,
                         });
                       }
                       getDAta();
@@ -229,11 +237,11 @@ const AddService = () => {
                                   error={meta.touched && meta.error ? true : false}
                                   helperText={meta.touched && meta.error ? meta.error : ""}
                                 >
-                                  {allSubCategory?.map((option) => (
+                                  {allSubCategory?.items ? (allSubCategory?.items?.map((option) => (
                                     <MenuItem key={option._id} value={option._id}>
                                       {option.subCategoryName}
                                     </MenuItem>
-                                  ))}
+                                  ))) : <div>load Sub Category</div>}
                                 </TextField>
                               )}
                             </Field>
@@ -510,6 +518,39 @@ const AddService = () => {
                               }
                               }
                             </FieldArray>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+                          <div className="flex p-4">
+                            <div className="flex items-center">
+                              <div className="font-bold mr-5">Is Active</div>
+                              <div>
+                                <RadioGroup
+                                  name="isActive"
+                                  value={formik.values.isActive}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  row
+                                >
+                                  <FormControlLabel
+                                    value="true"
+                                    control={<Radio />}
+                                    label="Yes"
+                                    labelPlacement="end"
+                                  />
+                                  <FormControlLabel
+                                    value="false"
+                                    control={<Radio />}
+                                    label="No"
+                                    labelPlacement="end"
+                                  />
+                                </RadioGroup>
+                                {formik.touched.isActive && formik.errors.isActive && (
+                                  <div className="text-red-600 text-xs">{formik.errors.isActive}</div>
+                                )}
+                              </div>
+                            </div>
                           </div>
                         </div>
 

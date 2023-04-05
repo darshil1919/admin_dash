@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import _ from 'lodash';
+
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import * as yup from "yup";
@@ -50,6 +55,7 @@ const AddSubCategory = () => {
     categoryId: "",
     description: "",
     image: "",
+    isActive: "",
   }
 
   const validationSchema = yup.object().shape({
@@ -78,6 +84,7 @@ const AddSubCategory = () => {
         }
       }
     ),
+    isActive: yup.boolean().required("is Active is required"),
   });
 
   const handleFileChange = (event, setFieldValue) => {
@@ -98,15 +105,17 @@ const AddSubCategory = () => {
       myForm.append("categoryId", data.categoryId);
       myForm.append("description", data.description);
       myForm.append("image", data.image);
+      myForm.append("isActive", data.isActive);
       console.log("myForm-->", myForm);
       dispatch(addSubCategory(myForm));
       console.log("subCategory==============->", subCategory);
-      // navigate(`/sub-category`);
+      navigate(`/sub-category`);
     } else {
       const myForm = new FormData();
       myForm.append("subCategoryName", data.subCategoryName);
       myForm.append("categoryId", data.categoryId);
       myForm.append("description", data.description);
+      myForm.append("isActive", data.isActive);
       if (preview) {
         myForm.append("image", data.image);
         console.log("in preview", preview);
@@ -136,6 +145,8 @@ const AddSubCategory = () => {
                 enableReinitialize={true}
               >
                 {(formik) => {
+                  console.log("formik-->", formik);
+                  console.log("formik.errors.isActive-->", formik.errors.isActive);
                   useEffect(() => {
                     if (isEdit) {
                       async function getDAta() {
@@ -157,6 +168,7 @@ const AddSubCategory = () => {
                           categoryId: subCategory?.categoryId,
                           description: subCategory?.description,
                           image: subCategory?.image,
+                          isActive: subCategory?.isActive,
                         });
                       }
                       getDAta();
@@ -196,7 +208,7 @@ const AddSubCategory = () => {
                                 error={meta.touched && meta.error ? true : false}
                                 helperText={meta.touched && meta.error ? meta.error : ""}
                               >
-                                {allCategory.map((option) => (
+                                {allCategory?.items?.map((option) => (
                                   <MenuItem key={option._id} value={option._id}>
                                     {option.categoryName}
                                   </MenuItem>
@@ -287,6 +299,37 @@ const AddSubCategory = () => {
                               </Field>
                             </>
                           }
+                        </div>
+
+                        <div className="p-4">
+                          <div className="flex items-center">
+                            <div className="font-bold mr-5">Is Active</div>
+                            <div>
+                              <RadioGroup
+                                name="isActive"
+                                value={formik.values.isActive}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                row
+                              >
+                                <FormControlLabel
+                                  value="true"
+                                  control={<Radio />}
+                                  label="Yes"
+                                  labelPlacement="end"
+                                />
+                                <FormControlLabel
+                                  value="false"
+                                  control={<Radio />}
+                                  label="No"
+                                  labelPlacement="end"
+                                />
+                              </RadioGroup>
+                              {formik.touched.isActive && formik.errors.isActive && (
+                                <div className="text-red-600 text-xs">{formik.errors.isActive}</div>
+                              )}
+                            </div>
+                          </div>
                         </div>
 
                         <div className="text-center">

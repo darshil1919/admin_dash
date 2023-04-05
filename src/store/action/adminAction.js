@@ -14,24 +14,26 @@ import {
 // admin login
 export const login =
   ({ email, password }) =>
-  async (dispatch) => {
-    try {
-      dispatch(LOGIN_REQUEST());
+    async (dispatch) => {
+      try {
+        dispatch(LOGIN_REQUEST());
 
-      const config = { headers: { "Content-Type": "application/json" } };
+        const config = { headers: { "Content-Type": "application/json" } };
 
-      const { data } = await axios.post(
-        `/api/v1/admin/login`,
-        { email, password },
-        config
-      );
+        const { data } = await axios.post(
+          `/api/v1/admin/login`,
+          { email, password },
+          config
+        );
 
-      dispatch(LOGIN_SUCCESS(data.data));
-    } catch (error) {
-      console.log(error.response.data.message);
-      dispatch(LOGIN_FAIL(error.response.data.message));
-    }
-  };
+        console.log("data-->", data);
+        dispatch(LOGIN_SUCCESS(data.data));
+      } catch (error) {
+        console.log("error-->", error);
+        console.log("error.response.data.message--->", error.response.data.message);
+        dispatch(LOGIN_FAIL(error.response.data.message));
+      }
+    };
 
 // Load admin
 export const loadAdmin = () => async (dispatch) => {

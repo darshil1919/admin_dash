@@ -16,14 +16,14 @@ import {
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-export function getService() {
+export function getService(payload) {
   return async (dispatch, getState) => {
     try {
       dispatch(ALL_SERVICE_REQUEST());
 
       const config = { headers: { "Content-Type": "application/json" } };
 
-      const { data } = await axios.post(`/api/v1/service/all`, config);
+      const { data } = await axios.post(`/api/v1/service/all`, payload, config);
       // console.log("data-->", data);
       dispatch(ALL_SERVICE_SUCCESS(data.data));
 
@@ -80,9 +80,10 @@ export function updateService(editId, payload) {
       const config = { headers: { "Content-Type": "multipart/form-data" } };
       let endpoint = `/api/v1/service/update?id=${editId}`;
       const { data } = await axios.post(endpoint, payload, config);
-      dispatch(UPDATE_SERVICE_SUCCESS(data.data));
 
-      toast.success(data.data);
+      console.log("data.data-->", data);
+      dispatch(UPDATE_SERVICE_SUCCESS(data.data));
+      toast.success(data.data.message);
 
     } catch (error) {
       dispatch(UPDATE_SERVICE_FAIL(error.message));

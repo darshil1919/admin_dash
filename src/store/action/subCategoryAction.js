@@ -16,15 +16,16 @@ import {
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-export function getSubCategory() {
+export function getSubCategory(payload) {
   return async (dispatch, getState) => {
     try {
       dispatch(ALL_SUBCATEGORY_REQUEST());
 
       const config = { headers: { "Content-Type": "application/json" } };
 
-      const { data } = await axios.get(`/api/v1/subcategory/all`, config);
+      const { data } = await axios.post(`/api/v1/subcategory/all`, payload, config);
 
+      console.log("subcategory data->", data);
       dispatch(ALL_SUBCATEGORY_SUCCESS(data.data));
 
     } catch (error) {
@@ -64,9 +65,10 @@ export function addSubCategory(payload) {
       toast.success('Data added successfully');
 
     } catch (error) {
-      dispatch(SUBCATEGORY_FAIL(error.message));
+      console.log("err---->", error);
+      dispatch(SUBCATEGORY_FAIL(error.response.data.message));
 
-      toast.error(error.message);
+      toast.error(error.response.data.message);
     }
   };
 }
