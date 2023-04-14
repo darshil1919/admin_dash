@@ -35,7 +35,7 @@ import Loader from "../Loader/Loader";
 // const ProtectedRoute = ({ children }) => {
 //   const { loading, isAuthenticated, admin } = useSelector((state) => state.admin);
 //   const navigate = useNavigate();
-  
+
 //   return isAuthenticated ? children : <Navigate to="/login" />;
 // }
 // export default ProtectedRoute;
@@ -50,10 +50,10 @@ const ProtectedRoute = (props) => {
   //   }
   // }, [])
 
-  if(loading){
+  if (loading) {
     return <Loader />
   } else {
-  return isAuthenticated ? <Component /> : <Navigate to="/login" />
+    return isAuthenticated ? <Component /> : <Navigate to="/login" />
   }
 }
 

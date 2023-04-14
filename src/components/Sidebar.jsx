@@ -77,8 +77,8 @@ const Sidebar = () => {
                 <span className="capitalize ">orders</span>
               </NavLink>
               <NavLink
-                to="/employees"
-                key="employees"
+                to="/worker"
+                key="worker"
                 onClick={handleCloseSideBar}
                 style={({ isActive }) => ({
                   backgroundColor: isActive ? currentColor : '',
@@ -86,11 +86,11 @@ const Sidebar = () => {
                 className={({ isActive }) => (isActive ? activeLink : normalLink)}
               >
                 <IoMdContacts />
-                <span className="capitalize ">employees</span>
+                <span className="capitalize ">worker</span>
               </NavLink>
               <NavLink
-                to="/customers"
-                key="customers"
+                to="/customer"
+                key="customer"
                 onClick={handleCloseSideBar}
                 style={({ isActive }) => ({
                   backgroundColor: isActive ? currentColor : '',
@@ -98,7 +98,7 @@ const Sidebar = () => {
                 className={({ isActive }) => (isActive ? activeLink : normalLink)}
               >
                 <RiContactsLine />
-                <span className="capitalize ">customers</span>
+                <span className="capitalize ">customer</span>
               </NavLink>
               <NavLink
                 to="/category"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Header } from '../components';
+import { Header } from '../../components';
 import TextField from '@mui/material/TextField';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,8 +10,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { DropDownTreeComponent } from '@syncfusion/ej2-react-dropdowns';
-
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TablePagination from '@mui/material/TablePagination';
 import EditIcon from '@mui/icons-material/Edit';
@@ -20,22 +18,21 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import { red } from '@mui/material/colors';
 import Chip from '@mui/material/Chip';
-import Loader from '../components/Loader/Loader';
+import Loader from '../../components/Loader/Loader';
 import { visuallyHidden } from '@mui/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSubCategory, deleteSubCategory } from '../store/action/subCategoryAction';
-import { getCategory } from "../store/action/categoryAction";
+import { getWorker, deleteWorker } from '../../store/action/workerAction';
 
 import {
-  DELETE_SUBCATEGORY_RESET,
-} from '../store/slice/subCategorySlice/subCategorySlice';
-import Loading from '../components/small/Loading';
+  DELETE_WORKER_RESET,
+} from '../../store/slice/workerSlice/workerSlice';
+import Loading from '../../components/small/Loading';
 
 const DEFAULT_ROWS_PER_PAGE = 5;
 const DEFAULT_ORDER = 'asc';
 const DEFAULT_ORDER_BY = '_id';
 
-const SubCategory = () => {
+const Worker = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchField = useRef("");
@@ -48,24 +45,21 @@ const SubCategory = () => {
   const [selectText, setSelectText] = useState("");
   const [selectData, setSelectData] = useState("");
 
-
-  console.log("selectData---->", selectData);
-
-  const { allSubCategory, loading: allSubCategoryLoader } = useSelector((state) => {
-    return state.allSubCategory;
+  const { allWorker, loading: allWorkerLoader } = useSelector((state) => {
+    return state.allWorker;
   });
 
-  const { allCategory, loading: allCategoryLoading } = useSelector((state) => {
-    return state.allCategory;
-  });
+  // const { allCategory, loading: allCategoryLoading } = useSelector((state) => {
+  //   return state.allCategory;
+  // });
 
   const { isDeleted } = useSelector((state) => {
-    return state.subCategory;
+    return state.worker;
   });
 
   useEffect(() => {
     if (isDeleted) {
-      dispatch(DELETE_SUBCATEGORY_RESET());
+      dispatch(DELETE_WORKER_RESET());
     };
     let payload = {
       page: page + 1,
@@ -90,8 +84,7 @@ const SubCategory = () => {
       }
     }
     console.log("payload--->", payload);
-    dispatch(getSubCategory(payload));
-    dispatch(getCategory());
+    dispatch(getWorker(payload));
 
   }, [dispatch, page, rowsPerPage, isDeleted, selectText, orderBy, order, searchText])
 
@@ -99,19 +92,24 @@ const SubCategory = () => {
     let payload = {
       id: id,
     }
-    dispatch(deleteSubCategory(payload));
+    dispatch(deleteWorker(payload));
   };
 
   const headCells = [
     {
-      id: 'subCategoryName',
+      id: 'firstName',
       numeric: false,
-      label: 'sub category name',
+      label: 'first Name',
     },
     {
-      id: 'description',
+      id: 'lastName',
       numeric: true,
-      label: 'description',
+      label: 'last Name',
+    },
+    {
+      id: 'email',
+      numeric: true,
+      label: 'email',
     },
   ];
 
@@ -130,17 +128,14 @@ const SubCategory = () => {
     [order, orderBy, page, rowsPerPage],
   );
 
-  const searchCategory = (event) => {
+  const searchWorker = (event) => {
     setSearchText(searchField.current?.value);
   };
 
-  useEffect(() => {
-    if (!_.isEmpty(allCategory.items)) {
-      let abc = allCategory.items;
+  // useEffect(() => {
+  //   dispatch(getCustomer());
 
-      setSelectData(abc);
-    }
-  }, [allSubCategory, allCategory])
+  // }, [])
 
   let treeSettings = { autoCheck: true };
 
@@ -151,13 +146,13 @@ const SubCategory = () => {
 
   return (
     <>
-      {allSubCategoryLoader && false ?
+      {allWorkerLoader && false ?
         (
           <Loader />
 
         ) : (
           <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-            <Header category="Page" title="Sub Category" />
+            <Header category="Page" title="Workers" />
 
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
               <div className='flex justify-center py-2 sm:justify-start'>
@@ -167,26 +162,13 @@ const SubCategory = () => {
                   type="search"
                   inputRef={searchField}
                   variant="standard"
-                  onChange={searchCategory}
+                  onChange={searchWorker}
                 />
               </div>
               <div className='flex justify-center items-center py-2 sm:justify-center'>
-                <DropDownTreeComponent
-                  id="dropdowntree"
-                  fields={{ dataSource: selectData, value: '_id', text: 'categoryName' }}
-                  showCheckBox={true}
-                  treeSettings={treeSettings}
-                  mode="Delimiter"
-                  placeholder="select Category"
-                  popupHeight="250px"
-                  change={dropDownChange}
-                  value={selectText}
-                  floatLabelType="Auto"
-                  cssClass="customClass"
-                />
               </div>
               <div className="flex items-center justify-center py-2 sm:justify-end">
-                <Button variant="contained" onClick={() => navigate('/sub-category/add-subcategory')}>+ Add New</Button>
+                <Button variant="contained" onClick={() => navigate('/worker/add-worker')}>+ Add New</Button>
               </div>
             </div>
 
@@ -216,36 +198,37 @@ const SubCategory = () => {
                           </TableSortLabel>
                         </TableCell>
                       ))}
-                      <TableCell align="center">image</TableCell>
-                      <TableCell align="center">status</TableCell>
+                      <TableCell align="center">phone</TableCell>
+                      <TableCell align="center">Is Active</TableCell>
                       <TableCell align="center">Action</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {allSubCategory?.items?.map((row, index) => (
+                    {allWorker?.items?.map((row, index) => (
                       <TableRow
                         key={row._id}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                       >
                         <TableCell align="center">{++index}</TableCell>
-                        <TableCell align="center">{row?.subCategoryName}</TableCell>
-                        <TableCell align="center">{row?.description}</TableCell>
-                        <TableCell align="center">{row?.image}</TableCell>
+                        <TableCell align="center">{row?.firstName}</TableCell>
+                        <TableCell align="center">{row?.lastName}</TableCell>
+                        <TableCell align="center">{row?.email}</TableCell>
+                        <TableCell align="center">{row?.phone}</TableCell>
                         <TableCell align="center">{row?.isActive ?
-                          <Chip label="Active" style={{ backgroundColor: '#4BB543', color: '#ffffff' }} /> :
-                          <Chip label="Inactive" style={{ backgroundColor: '#F44336', color: '#ffffff' }} />
+                          <Chip label="Yes" style={{ backgroundColor: '#4BB543', color: '#ffffff' }} /> :
+                          <Chip label="No" style={{ backgroundColor: '#F44336', color: '#ffffff' }} />
                         }</TableCell>
                         <TableCell align="center">
                           <IconButton
-                            onClick={() => navigate(`/sub-category/edit-subcategory/${row?._id}`)}
+                            onClick={() => navigate(`/worker/edit-worker/${row?._id}`)}
                           >
                             <EditIcon color="primary" />
                           </IconButton>
-                          <IconButton
+                          {/* <IconButton
                             onClick={() => deleteData(row?._id)}
                           >
                             <DeleteRoundedIcon sx={{ color: red[500] }} />
-                          </IconButton>
+                          </IconButton> */}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -253,11 +236,11 @@ const SubCategory = () => {
                 </Table>
               </TableContainer>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={[2, 5, 10, 25]}
                 component="div"
-                count={parseInt(allSubCategory?.count) || 0}
+                count={parseInt(allWorker?.count) || 0}
                 rowsPerPage={rowsPerPage}
-                page={!parseInt(allSubCategory?.count) || parseInt(allSubCategory?.count) <= 0 ? 0 : page}
+                page={!parseInt(allWorker?.count) || parseInt(allWorker?.count) <= 0 ? 0 : page}
                 onPageChange={(event, newPage) => { setPage(newPage); }}
                 onRowsPerPageChange={(event) => {
                   setRowsPerPage(parseInt(event.target.value));
@@ -272,4 +255,4 @@ const SubCategory = () => {
   )
 }
 
-export default SubCategory;
+export default Worker;

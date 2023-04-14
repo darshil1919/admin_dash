@@ -166,12 +166,7 @@ const Category = () => {
               />
             </div>
             <div className='flex justify-center items-center py-2 sm:justify-center'>
-              <TextField
-                id="standard-search"
-                label="Search field"
-                type="search"
-                variant="standard"
-              />
+              
             </div>
             <div className="flex justify-center items-center py-2 sm:justify-end">
               <Button variant="contained" onClick={handleClickOpen}>+ Add New</Button>
