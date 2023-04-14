@@ -10,3 +10,8 @@ export { default as Error } from './Error';
 export { default as Dashboard } from './Dashboard';
 export { default as Service } from './Services';
 export { default as AddService } from './AddService';
+export { default as Customer } from './customer/Customer';
+export { default as AddCustomer } from './customer/AddCustomer';
+export { default as Worker } from './worker/Worker';
+export { default as AddWorker } from './worker/AddWorker';
+

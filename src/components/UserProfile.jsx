@@ -6,11 +6,15 @@ import { userProfileData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import avatar from '../data/avatar.jpg';
 import { logout } from '../store/action/adminAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
   const { currentColor } = useStateContext();
+
+  const { admin } = useSelector((state) => {
+    return state.admin;
+  });
 
   const onClickLogout = () => {
     // console.log("logout")
@@ -20,7 +24,7 @@ const UserProfile = () => {
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">
-        <p className="font-semibold text-lg dark:text-gray-200">User Profile</p>
+        <p className="font-semibold text-lg dark:text-gray-200">Admin Profile</p>
         <Button
           icon={<MdOutlineCancel />}
           color="rgb(153, 171, 180)"
@@ -36,13 +40,13 @@ const UserProfile = () => {
           alt="user-profile"
         />
         <div>
-          <p className="font-semibold text-xl dark:text-gray-200"> Michael Roberts </p>
-          <p className="text-gray-500 text-sm dark:text-gray-400">  Administrator   </p>
-          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> info@shop.com </p>
+          <p className="font-semibold text-xl dark:text-gray-200 capitalize "> {admin?.firstName + " " + admin?.lastName} </p>
+          <p className="text-gray-500 text-sm dark:text-gray-400 capitalize ">  {admin?.role}   </p>
+          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> {admin?.email} </p>
         </div>
       </div>
       <div>
-        {userProfileData.map((item, index) => (
+        {/* {userProfileData.map((item, index) => (
           <div key={index} className="flex gap-5 border-b-1 border-color p-4 hover:bg-light-gray cursor-pointer  dark:hover:bg-[#42464D]">
             <button
               type="button"
@@ -57,7 +61,7 @@ const UserProfile = () => {
               <p className="text-gray-500 text-sm dark:text-gray-400"> {item.desc} </p>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
       <div className="mt-5" onClick={onClickLogout}>
         <Button

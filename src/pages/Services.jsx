@@ -212,6 +212,7 @@ const Service = () => {
                 popupHeight="250px"
                 change={dropDownChange}
                 // style={{ color: 'blue', borderColor: '#1976d2' }}
+                value={selectText}
                 floatLabelType="Auto"
                 cssClass="customClass"
               />
