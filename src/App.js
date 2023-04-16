@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { Ecommerce, Orders, Employees, Category, Login, Error, Dashboard, SubCategory, AddSubCategory, Service, AddService, Customer, AddCustomer, Worker, AddWorker } from "./pages";
+import { Ecommerce, Orders, Employees, Category, Login, Error, Dashboard, SubCategory, AddSubCategory, Service, AddService, Customer, AddCustomer, Worker, AddWorker, ViewOrder } from "./pages";
 import "./App.css";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,6 +29,7 @@ const App = () => {
           component={Dashboard}
         /> */}
           <Route exact path="/orders" element={<Orders />} />
+          <Route exact path="/order/view/:id" element={<ViewOrder />} />
           <Route exact path="/employees" element={<Employees />} />
           <Route exact path="/customer" element={<Customer />} />
           <Route exact path="/customer/add-customer" element={<AddCustomer />} />

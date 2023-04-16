@@ -50,6 +50,7 @@ const AddWorker = () => {
   }, [dispatch, editId]);
 
   let initialValues = {
+    avatar: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -71,6 +72,22 @@ const AddWorker = () => {
   }
 
   const validationSchema = yup.object().shape({
+    avatar: yup.mixed().required("Image is required").test(
+      "fileFormat",
+      "only .jpeg .jpg and .png file supported.",
+      (value) => {
+        if (isEdit) {
+          return true;
+        } else {
+          if (value) {
+            return ["image/jpeg", "image/jpg", "image/png"].includes(
+              value.type
+            );
+          }
+          return true;
+        }
+      }
+    ),
     firstName: yup
       .string("Enter first name")
       .required("firstName is required"),
@@ -115,17 +132,64 @@ const AddWorker = () => {
     isActive: yup.boolean().required("is Active is required"),
   });
 
+  const handleFileChange = (event, setFieldValue) => {
+    const file = event.target.files[0];
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    } else {
+      setPreview("");
+    }
+    setFieldValue("avatar", file);
+  };
+
+
   const handleSubmit = (data) => {
     console.log("in submit->", data);
     if (!isEdit) {
       console.log("myForm-->", data);
-      dispatch(addWorker(data));
-      navigate(`/customer`);
+      const myForm = new FormData();
+      myForm.append("avatar", data.avatar);
+      myForm.append("firstName", data.firstName);
+      myForm.append("lastName", data.lastName);
+      myForm.append("email", data.email);
+      myForm.append("phone", data.phone);
+      myForm.append("address", JSON.stringify(data.address));
+      
+      myForm.append("skills", data.skills);
+      myForm.append("location", data.location);
+      myForm.append("isVerified", data.isVerified);
+      myForm.append("isActive", data.isActive);
+      myForm.append("gender", data.gender);
+      myForm.append("password", data.password);
+      console.log("myForm-->", myForm);
+      // dispatch(addService(myForm));
+      dispatch(addWorker(myForm));
+      navigate(`/worker`);
     } else {
-      delete data.addBy;
-      delete data.password;
       console.log("data---0", data);
-      dispatch(updateWorker(editId, data));
+      const myForm = new FormData();
+      myForm.append("firstName", data.firstName);
+      myForm.append("lastName", data.lastName);
+      myForm.append("email", data.email);
+      myForm.append("phone", data.phone);
+      myForm.append("houseNo", data.houseNo);
+      myForm.append("streetName", data.streetName);
+      myForm.append("landMark", data.landMark);
+      myForm.append("city", data.city);
+      myForm.append("state", data.state);
+      myForm.append("pinCode", data.pinCode);
+      myForm.append("skills", data.skills);
+      myForm.append("location", data.location);
+      myForm.append("isVerified", data.isVerified);
+      myForm.append("isActive", data.isActive);
+      myForm.append("gender", data.gender);
+      if (preview) {
+        myForm.append("avatar", data.avatar);
+        console.log("in preview", preview);
+      }
+      // myForm.append("password", data.password);
+      console.log("myForm-->", myForm);
+      dispatch(updateWorker(editId, myForm));
       navigate(`/worker`);
     }
   };
@@ -155,6 +219,7 @@ const AddWorker = () => {
                     if (isEdit) {
                       async function getDAta() {
                         formik.setValues({
+                          avatar: worker?.avatar,
                           firstName: worker?.firstName,
                           lastName: worker?.lastName,
                           email: worker?.email,
@@ -174,6 +239,65 @@ const AddWorker = () => {
                   return (
                     <Form className="flex justify-center w-full px-8 py-5">
                       <div className="w-full  2xl:w-3/5">
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+
+                          <div className="flex justify-center p-4">
+                            {!isEdit &&
+                              <>
+                                <Field name="avatar">
+                                  {({ field, form: { setFieldValue }, meta, form }) => (
+                                    <TextField
+                                      fullWidth
+                                      type="file"
+                                      inputProps={{
+                                        accept: "image/png, image/jpeg, image/jpg",
+                                      }}
+                                      onChange={(event) => handleFileChange(event, setFieldValue)}
+                                      error={meta.touched && meta.error ? true : false}
+                                      helperText={meta.touched && meta.error ? meta.error : ""} />
+                                  )}
+                                </Field>
+                                {preview && (
+                                  <div className="pl-2">
+                                    <div style={{ width: "75px", height: "75px" }}>
+                                      <img
+                                        className="h-16 w-24"
+                                        src={preview}
+                                        alt="Selected Image" />
+                                    </div>
+                                  </div>
+                                )}
+                              </>
+                            }
+                            {isEdit &&
+                              <>
+                                <Field name="avatar">
+                                  {({ field, form: { setFieldValue }, meta, form }) => (
+                                    <TextField
+                                      fullWidth
+                                      name="avatar"
+                                      type="file"
+                                      inputProps={{
+                                        accept: "image/png, image/jpeg, image/jpg",
+                                      }}
+                                      onChange={(event) => handleFileChange(event, setFieldValue)}
+                                      error={meta.touched && meta.error ? true : false}
+                                      helperText={meta.touched && meta.error ? meta.error : ""} />
+                                  )}
+                                </Field>
+                                <div className="pl-2">
+                                  <div style={{ width: "75px", height: "75px" }}>
+                                    <img
+                                      className="h-16 w-24"
+                                      src={preview ? preview : `http://localhost:4000/image/workerImages/${worker?.avatar}`}
+                                      alt="Sub Category Image" />
+                                  </div>
+                                </div>
+                              </>
+                            }
+                          </div>
+                        </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
                           <div className="flex justify-center p-4">

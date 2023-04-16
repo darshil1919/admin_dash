@@ -20,6 +20,10 @@ import allWorkerSlice from './slice/workerSlice/allWorkerSlice';
 import workerDetailsSlice from './slice/workerSlice/workerDetailsSlice';
 import workerSlice from './slice/workerSlice/workerSlice';
 
+import allOrderSlice from './slice/orderSlice/allOrderDetailSlice';
+import orderDetailsSlice from './slice/orderSlice/orderDetailSlice';
+import orderSlice from './slice/orderSlice/orderSlice';
+
 const store = configureStore({
     reducer: {
         admin: admineSlice,
@@ -44,10 +48,15 @@ const store = configureStore({
         customerDetails: customerDetailsSlice,
         customer: customerSlice,
 
-        // customer slice
+        // worker slice
         allWorker: allWorkerSlice,
         workerDetails: workerDetailsSlice,
         worker: workerSlice,
+
+        // order slice
+        allOrder: allOrderSlice,
+        orderDetails: orderDetailsSlice,
+        order: orderSlice,
     },
 });
 

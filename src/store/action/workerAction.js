@@ -56,7 +56,7 @@ export function addWorker(payload) {
     try {
       dispatch(WORKER_REQUEST());
 
-      const config = { headers: { "Content-Type": "application/json" } };
+      const config = { headers: { "Content-Type": "multipart/form-data" } };
 
       const { data } = await axios.post(`/api/v1/worker/add`, payload, config);
       console.log("data------------>", data);
@@ -78,7 +78,7 @@ export function updateWorker(editId, payload) {
     try {
       dispatch(UPDATE_WORKER_REQUEST());
 
-      const config = { headers: { "Content-Type": "application/json" } };
+      const config = { headers: { "Content-Type": "multipart/form-data" } };
       let endpoint = `/api/v1/worker/updateworker?id=${editId}`;
       const { data } = await axios.post(endpoint, payload, config);
       console.log("data-->", data);
