@@ -172,12 +172,8 @@ const AddWorker = () => {
       myForm.append("lastName", data.lastName);
       myForm.append("email", data.email);
       myForm.append("phone", data.phone);
-      myForm.append("houseNo", data.houseNo);
-      myForm.append("streetName", data.streetName);
-      myForm.append("landMark", data.landMark);
-      myForm.append("city", data.city);
-      myForm.append("state", data.state);
-      myForm.append("pinCode", data.pinCode);
+      myForm.append("address", JSON.stringify(data.address));
+
       myForm.append("skills", data.skills);
       myForm.append("location", data.location);
       myForm.append("isVerified", data.isVerified);
