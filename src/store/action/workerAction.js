@@ -100,7 +100,7 @@ export function deleteWorker(payload) {
 
       const config = { headers: { "Content-Type": "application/json" } };
       let endpoint = `/api/v1/worker/delete`;
-      // const { data } = await axios.post(endpoint, payload, config);
+      const { data } = await axios.post(endpoint, payload, config);
       console.log("data-->", data);
       console.log("data.data.type == SUCCESS-->", data.data.type == "SUCCESS");
       dispatch(DELETE_WORKER_SUCCESS(data.type == "SUCCESS"));
