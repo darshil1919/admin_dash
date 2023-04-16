@@ -28,7 +28,7 @@ import {
 } from '../../store/slice/workerSlice/workerSlice';
 import Loading from '../../components/small/Loading';
 
-const DEFAULT_ROWS_PER_PAGE = 5;
+const DEFAULT_ROWS_PER_PAGE = 10;
 const DEFAULT_ORDER = 'asc';
 const DEFAULT_ORDER_BY = '_id';
 

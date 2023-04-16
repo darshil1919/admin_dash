@@ -28,7 +28,7 @@ import { UPDATE_CATEGORY_RESET, DELETE_CATEGORY_RESET } from '../store/slice/cat
 import SimpleBackdrop from '../components/small/Loading';
 // import Loading from '../components/small/Loading';
 
-const DEFAULT_ROWS_PER_PAGE = 5;
+const DEFAULT_ROWS_PER_PAGE = 10;
 const DEFAULT_ORDER = 'asc';
 const DEFAULT_ORDER_BY = '_id';
 

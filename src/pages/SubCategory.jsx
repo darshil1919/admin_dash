@@ -31,7 +31,7 @@ import {
 } from '../store/slice/subCategorySlice/subCategorySlice';
 import Loading from '../components/small/Loading';
 
-const DEFAULT_ROWS_PER_PAGE = 5;
+const DEFAULT_ROWS_PER_PAGE = 10;
 const DEFAULT_ORDER = 'asc';
 const DEFAULT_ORDER_BY = '_id';
 
