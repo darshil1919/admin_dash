@@ -16,4 +16,6 @@ export { default as AddCustomer } from './customer/AddCustomer';
 export { default as Worker } from './worker/Worker';
 export { default as AddWorker } from './worker/AddWorker';
 export { default as Profile } from './profile/Profile';
+export { default as ContactUs } from './contactUs/ContactUs';
+export { default as Response } from './contactUs/Response';
 

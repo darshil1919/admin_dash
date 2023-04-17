@@ -136,6 +136,18 @@ const Sidebar = () => {
                 <RiContactsLine />
                 <span className="capitalize">Service</span>
               </NavLink>
+              <NavLink
+                to="/contactUs"
+                key="contactUs"
+                onClick={handleCloseSideBar}
+                style={({ isActive }) => ({
+                  backgroundColor: isActive ? currentColor : '',
+                })}
+                className={({ isActive }) => (isActive ? activeLink : normalLink)}
+              >
+                <RiContactsLine />
+                <span className="capitalize">ContactUs</span>
+              </NavLink>
             </div>
           </div>
         </>
