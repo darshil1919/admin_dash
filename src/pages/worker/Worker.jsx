@@ -173,8 +173,8 @@ const Worker = () => {
             </div>
 
             <Paper>
-              <TableContainer sx={{ maxHeight: 500 }} component={Paper}>
-                <Table sx={{ minWidth: 650 }} stickyHeader>
+              <TableContainer component={Paper}>
+                <Table stickyHeader>
                   <TableHead>
                     <TableRow>
                       <TableCell align="center">No.</TableCell>
