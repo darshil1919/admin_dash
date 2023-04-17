@@ -24,6 +24,10 @@ import allOrderSlice from './slice/orderSlice/allOrderDetailSlice';
 import orderDetailsSlice from './slice/orderSlice/orderDetailSlice';
 import orderSlice from './slice/orderSlice/orderSlice';
 
+import allContactUsSlice from './slice/contactUsSlice/allContactUsSlice';
+import contactUsDetailsSlice from './slice/contactUsSlice/contactUsDetailsSlice';
+import contactUsSlice from './slice/contactUsSlice/contactUsSlice';
+
 const store = configureStore({
     reducer: {
         admin: admineSlice,
@@ -57,6 +61,11 @@ const store = configureStore({
         allOrder: allOrderSlice,
         orderDetails: orderDetailsSlice,
         order: orderSlice,
+
+        // contactUS slice
+        allContactUs: allContactUsSlice,
+        contactUsDetails: contactUsDetailsSlice,
+        contactUs: contactUsSlice,
     },
 });
 
