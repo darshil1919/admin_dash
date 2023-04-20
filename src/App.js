@@ -6,6 +6,7 @@ import "./App.css";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 import { useSelector, useDispatch } from "react-redux";
 import { loadAdmin } from "./store/action/adminAction";
+import Resetpassword from "./pages/Resetpassword";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/resetpassword/:token" element={<Resetpassword />} />
         <Route exact path="/" element={<ProtectedRoute Component={Ecommerce} />}>
           <Route exact path="/" element={<Dashboard />} />
           {/* <Route path="/" element={<ProtectedRoute Component={Dashboard} />} /> */}

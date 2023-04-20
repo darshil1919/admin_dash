@@ -27,10 +27,14 @@ import orderSlice from './slice/orderSlice/orderSlice';
 import allContactUsSlice from './slice/contactUsSlice/allContactUsSlice';
 import contactUsDetailsSlice from './slice/contactUsSlice/contactUsDetailsSlice';
 import contactUsSlice from './slice/contactUsSlice/contactUsSlice';
+import updatePassword from './slice/adminSlice/updatePassword';
+import forgotPasswordSlice from './slice/adminSlice/forgotPasswordSlice';
 
 const store = configureStore({
     reducer: {
         admin: admineSlice,
+        updatePassword: updatePassword,
+        forgotPassword: forgotPasswordSlice,
 
         // category slice
         allCategory: allCategorySlice,

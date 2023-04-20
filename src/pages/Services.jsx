@@ -262,7 +262,16 @@ const Service = () => {
                       <TableCell align="center">{++index}</TableCell>
                       <TableCell align="center">{row?.serviceName}</TableCell>
                       <TableCell align="center">{row?.description}</TableCell>
-                      <TableCell align="center">{row?.image}</TableCell>
+                      <TableCell align="center">
+                        <div style={{ width: "75px", height: "75px" }}>
+                          <img
+                            className="h-16 w-24"
+                            src={`http://localhost:4000/image/serviceImages/${row?.image}`}
+                            alt="category Image"
+                          />
+                        </div>
+                      </TableCell>
+                      {/* <TableCell align="center">{row?.image}</TableCell> */}
                       <TableCell align="center" >{row?.isActive ?
                         <Chip label="Active" style={{ backgroundColor: '#4BB543', color: '#ffffff' }} /> :
                         <Chip label="Inactive" style={{ backgroundColor: '#F44336', color: '#ffffff' }} />
