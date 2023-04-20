@@ -4,7 +4,7 @@ import { Header } from '../../components';
 import styles from "./profile.module.css";
 import AccordionStyles from "./Accordion.module.css";
 import { FiPlus, FiMinus } from "react-icons/fi";
-import { IconContext } from "react-icons";
+// import { IconContext } from "react-icons";
 
 
 const Profile = () => {
