@@ -10,6 +10,10 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
 } from "../slice/adminSlice/admineSlice";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { UPDATE_PASSWORD_FAIL, UPDATE_PASSWORD_REQUEST, UPDATE_PASSWORD_SUCCESS } from "../slice/adminSlice/updatePassword";
+import {FORGOT_PASSWORD_FAIL, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, RESET_PASSWORD_FAIL, RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS} from "../slice/adminSlice/forgotPasswordSlice";
 
 // admin login
 export const login =
@@ -32,6 +36,7 @@ export const login =
         console.log("error-->", error);
         console.log("error.response.data.message--->", error.response.data.message);
         dispatch(LOGIN_FAIL(error.response.data.message));
+        toast.error(error.response.data.message)
       }
     };
 
@@ -59,6 +64,77 @@ export const logout = () => async (dispatch) => {
     dispatch(LOGOUT_FAIL(error.response.data.message));
   }
 };
+
+// update admin password
+export function updatePassword(payload) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(UPDATE_PASSWORD_REQUEST());
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.post(
+        `/api/v1/customer/updatepassword`,
+        payload,
+        config
+      );
+
+      dispatch(UPDATE_PASSWORD_SUCCESS(data.data));
+      toast.success(data.data)
+    } catch (error) {
+      dispatch(UPDATE_PASSWORD_FAIL(error.response.data.message));
+      toast.error(error.response.data.message)
+    }
+  };
+}
+
+// forgot password
+export function forgotPassword(payload) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(FORGOT_PASSWORD_REQUEST());
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.post(
+        `/api/v1/customer/forgotpassword`,
+        payload,
+        config
+      );
+
+      dispatch(FORGOT_PASSWORD_SUCCESS(data.data.message));
+      toast.success(data.data.message)
+    } catch (error) {
+      dispatch(FORGOT_PASSWORD_FAIL(error.response.data.message));
+      toast.error(error.response.data.message)
+    }
+  };
+}
+
+// reset password
+export function resetPassword(payload) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(RESET_PASSWORD_REQUEST());
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.post(
+        `/api/v1/customer/resetpassword`,
+        payload,
+        config
+      );
+
+      dispatch(RESET_PASSWORD_SUCCESS(data.data.message));
+      toast.success(data.data.message)
+      // const navigate = useNavigate();
+      // navigate("/SignIn")
+    } catch (error) {
+      dispatch(RESET_PASSWORD_FAIL(error.response.data.message));
+      toast.error(error.response.data.message)
+    }
+  };
+}
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {

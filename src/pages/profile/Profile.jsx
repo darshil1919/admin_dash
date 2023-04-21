@@ -4,11 +4,43 @@ import { Header } from '../../components';
 import styles from "./profile.module.css";
 import AccordionStyles from "./Accordion.module.css";
 import { FiPlus, FiMinus } from "react-icons/fi";
-// import { IconContext } from "react-icons";
+import { IconContext } from "react-icons";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { updatePassword } from "../../store/action/adminAction";
 
 
 const Profile = () => {
 	const dispatch = useDispatch();
+	let [passwordData, setPasswordData] = useState({
+		oldPassword: "",
+		newPassword: "",
+		confirmPassword: ""
+	});
+
+	let onPasswordDataInputChange = (e, field) => {
+    setPasswordData({
+      ...passwordData,
+      [field]: e.target.value,
+    });
+  };
+
+	let onPasswordUpdate = (e) => {
+		e.preventDefault()
+		if(passwordData.oldPassword == ""){
+			return toast.error("Old password required");
+		}
+		if(passwordData.newPassword == ""){
+			return toast.error("New password required");
+		}
+		if(passwordData.confirmPassword == ""){
+			return toast.error("Confirm password required");
+		}
+		if(passwordData.newPassword != passwordData.confirmPassword){
+			return toast.error("New password and Confirm password not match");
+		}
+		dispatch(updatePassword(passwordData))
+	}
 
 	useEffect(() => {
 
@@ -121,43 +153,46 @@ const Profile = () => {
 										<div className={AccordionStyles.Dropdown}>
 
 											<div className={styles.content}>
-												<form>
-													<div className={styles["user-details"]}>
-														<div className={styles["input-box2"]}>
-															<span className={styles.details}>Old Password</span>
-															<input
-																type="text"
-																name="fullName"
-																placeholder="john Dear"
-
-																required
-															/>
-														</div>
-														<div className={styles["input-box2"]}>
-															<span className={styles.details}>New Password</span>
-															<input
-																type="text"
-																name="phoneNumber"
-																placeholder="Enter your phone number"
-
-																required
-															/>
-														</div>
-														<div className={styles["input-box2"]}>
-															<span className={styles.details}>Confirm Password</span>
-															<input
-																type="text"
-																name="text"
-																placeholder="Enter your email"
-
-																required
-															/>
-														</div>
-													</div>
-													<div className="text-center">
-														<button className={styles.submit_btn}>Update</button>
-													</div>
-												</form>
+											<form method="post">
+											<div className={styles["user-details"]}>
+												<div className={styles["input-box2"]}>
+													<span className={styles.details}>Old Password</span>
+													<input
+														type="text"
+														name="oldPassword"
+														placeholder="Old Password"
+														onChange={(e) => {
+                          		onPasswordDataInputChange(e, "oldPassword");
+														}}
+													/>
+												</div>
+												<div className={styles["input-box2"]}>
+													<span className={styles.details}>New Password</span>
+													<input
+														type="text"
+														name="newPassword"
+														placeholder="New Password"
+														onChange={(e) => {
+                          		onPasswordDataInputChange(e, "newPassword");
+														}}
+													/>
+												</div>
+												<div className={styles["input-box2"]}>
+													<span className={styles.details}>Confirm Password</span>
+													<input
+														type="text"
+														name="confirmPassword"
+														placeholder="Confirm Password"
+														onChange={(e) => {
+                          		onPasswordDataInputChange(e, "confirmPassword");
+														}}
+													/>
+												</div>
+											</div>
+											<div className="text-center">
+												<button className={styles.submit_btn} onClick={(e) => onPasswordUpdate(e)}>Update</button>
+											</div>
+										</form>
 											</div>
 
 										</div>
