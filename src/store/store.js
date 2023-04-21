@@ -1,5 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import admineSlice from './slice/adminSlice/admineSlice';
+
+import dashboardSlice from './slice/dashboardSlice/dashboardSlice';
+
 import allCategorySlice from './slice/categorySlice/allCategorySlice';
 import newCategorySlice from './slice/categorySlice/newCategorySlice';
 import categorySlice from './slice/categorySlice/categorySlice';
@@ -32,9 +35,13 @@ import forgotPasswordSlice from './slice/adminSlice/forgotPasswordSlice';
 
 const store = configureStore({
     reducer: {
+        // admin slice
         admin: admineSlice,
         updatePassword: updatePassword,
         forgotPassword: forgotPasswordSlice,
+
+        // dashboard slice
+        dashboard: dashboardSlice,
 
         // category slice
         allCategory: allCategorySlice,

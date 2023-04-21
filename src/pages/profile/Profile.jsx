@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updatePassword } from "../../store/action/adminAction";
 
+
 const Profile = () => {
 	const dispatch = useDispatch();
 	let [passwordData, setPasswordData] = useState({
