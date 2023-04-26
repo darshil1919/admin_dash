@@ -77,7 +77,7 @@ export function AddCategory(props) {
   };
 
   const validationSchema = yup.object().shape({
-    categoryName: yup.string().required('categoryName is required'),
+    categoryName: yup.string().required('categoryName is required').matches(/^[a-zA-Z ]*$/, "Category name must Alphabet"),
     description: yup.string().required('description is required'),
     image: yup.mixed()
       .required('Image is required')

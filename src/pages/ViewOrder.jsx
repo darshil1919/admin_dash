@@ -160,7 +160,7 @@ const ViewOrder = () => {
                             <tr key={index}>
                               <td className="p-2.5 border-b border-gray-200 bg-white text-sm">{index + 1}</td>
                               <td className="p-2.5 border-b border-gray-200 bg-white text-sm"><img className="h-16 w-20 mx-auto" src={`http://localhost:4000/image/serviceImages/${data?.image}`} alt="service Image" /></td>
-                              <td className="p-2.5 border-b border-gray-200 bg-white text-sm">{data?.image}</td>
+                              <td className="p-2.5 border-b border-gray-200 bg-white text-sm">{data?.serviceName}</td>
                               <td className="p-2.5 border-b border-gray-200 bg-white text-sm">{data?.quantity}</td>
                               <td className="p-2.5 border-b border-gray-200 bg-white text-sm">{data?.quantity * data?.price}</td>
                             </tr>

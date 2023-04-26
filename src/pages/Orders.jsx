@@ -34,7 +34,7 @@ import {
 import Loading from '../components/small/Loading';
 
 const DEFAULT_ROWS_PER_PAGE = 10;
-const DEFAULT_ORDER = 'asc';
+const DEFAULT_ORDER = 'desc';
 const DEFAULT_ORDER_BY = '_id';
 
 const Order = () => {
@@ -53,6 +53,8 @@ const Order = () => {
   const { allOrder, loading: allOrderLoader } = useSelector((state) => {
     return state.allOrder;
   });
+
+  console.log("allOrder------->", allOrder);
 
   const { isDeleted } = useSelector((state) => {
     return state.order;
@@ -102,9 +104,9 @@ const Order = () => {
       label: 'Start Time',
     },
     {
-      id: 'endTime',
+      id: 'grandTotal',
       numeric: true,
-      label: 'End Time',
+      label: 'Grand Total',
     },
   ];
 
@@ -224,7 +226,7 @@ const Order = () => {
                         >
                           <TableCell align="center">{++index}</TableCell>
                           <TableCell align="center">{start}</TableCell>
-                          <TableCell align="center">{end}</TableCell>
+                          <TableCell align="center">{row?.grandTotal}</TableCell>
                           <TableCell align="center">{row?.totalTime}</TableCell>
                           <TableCell align="center">{row?.status == 'confirmed' ?
                             <Chip label="confirmed" style={{ backgroundColor: '#ffe64d', color: '#000000' }} /> :
