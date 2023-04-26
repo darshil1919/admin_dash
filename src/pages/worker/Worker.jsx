@@ -49,6 +49,9 @@ const Worker = () => {
     return state.allWorker;
   });
 
+  const { worker, loading: workerLoading } = useSelector((state) => {
+    return state.workerDetails;
+  });
   // const { allCategory, loading: allCategoryLoading } = useSelector((state) => {
   //   return state.allCategory;
   // });
@@ -146,7 +149,7 @@ const Worker = () => {
 
   return (
     <>
-      {allWorkerLoader && false ?
+      {workerLoading ?
         (
           <Loader />
 

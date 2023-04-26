@@ -61,7 +61,8 @@ const AddSubCategory = () => {
   const validationSchema = yup.object().shape({
     subCategoryName: yup
       .string("Enter your name")
-      .required("subCategoryName is required"),
+      .required("subCategoryName is required")
+      .matches(/^[a-zA-Z ]*$/, "Sub Category Name must Alphabet"),
     categoryId: yup
       .string("Enter your categoryId")
       .required("categoryId is required"),

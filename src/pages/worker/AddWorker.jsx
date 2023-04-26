@@ -90,10 +90,12 @@ const AddWorker = () => {
     ),
     firstName: yup
       .string("Enter first name")
-      .required("firstName is required"),
+      .required("firstName is required")
+      .matches(/^[a-zA-Z ]*$/, "First Name must Alphabet"),
     lastName: yup
       .string("Enter last name")
-      .required("lastName is required"),
+      .required("lastName is required")
+      .matches(/^[a-zA-Z ]*$/, "First Name must Alphabet"),
     email: yup
       .string("Enter email")
       .email("Invalid email format")
@@ -618,7 +620,7 @@ const AddWorker = () => {
                                     fullWidth
                                     id="password"
                                     label="password"
-                                    type="text"
+                                    type="password"
                                     {...field}
                                     error={meta.touched && meta.error ? true : false}
                                     helperText={meta.touched && meta.error ? meta.error : ""} />

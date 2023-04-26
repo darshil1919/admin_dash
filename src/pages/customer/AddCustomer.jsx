@@ -65,10 +65,12 @@ const AddCustomer = () => {
   const validationSchema = yup.object().shape({
     firstName: yup
       .string("Enter first name")
-      .required("firstName is required"),
+      .required("firstName is required")
+      .matches(/^[a-zA-Z ]*$/, "First Name must Alphabet"),
     lastName: yup
       .string("Enter last name")
-      .required("lastName is required"),
+      .required("lastName is required")
+      .matches(/^[a-zA-Z ]*$/, "Last Name must Alphabet"),
     email: yup
       .string("Enter email")
       .email("Invalid email format")
@@ -81,9 +83,9 @@ const AddCustomer = () => {
     address: yup.object().shape({
       houseNo: yup.string().required("houseNo is required"),
       streetName: yup.string().required("streetName is required"),
-      landMark: yup.string().required("landMark is Required"),
-      city: yup.string().required("city is Required"),
-      state: yup.string().required("state is Required"),
+      landMark: yup.string().required("landMark is Required").matches(/^[a-zA-Z ]*$/, "landmark Name must Alphabet"),
+      city: yup.string().required("city is Required").matches(/^[a-zA-Z ]*$/, "City Name must Alphabet"),
+      state: yup.string().required("state is Required").matches(/^[a-zA-Z ]*$/, "State Name must Alphabet"),
       pinCode: yup
         .string()
         .required("pincode is Required")

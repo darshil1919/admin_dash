@@ -72,16 +72,19 @@ const AddService = () => {
   const validationSchema = yup.object().shape({
     serviceName: yup
       .string("Enter your name")
-      .required("serviceName is required"),
+      .required("serviceName is required")
+      .matches(/^[a-zA-Z ]*$/, "Service Name must Alphabet"),
     subCategoryId: yup
       .string("select sub Category name")
       .required("sub Category name is required"),
     duration: yup
       .string("enter duration")
-      .required("duration is required"),
+      .required("duration is required")
+      .matches(/^[0-9]*$/, "Duration must Number"),
     price: yup
       .string("enter price")
-      .required("price is required"),
+      .required("price is required")
+      .matches(/^[0-9]*$/, "Price must Number"),
     description: yup
       .string("Enter your description")
       .required("description is required"),

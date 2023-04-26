@@ -7,6 +7,10 @@ import { FiShoppingBag } from 'react-icons/fi';
 import { RiContactsLine } from 'react-icons/ri';
 import { IoMdContacts } from 'react-icons/io';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { MdOutlineCategory } from 'react-icons/md';
+import { TbCategory } from 'react-icons/tb';
+import { MdOutlineMiscellaneousServices } from 'react-icons/md';
+import { GrContact } from 'react-icons/gr';
 
 import { useStateContext } from '../contexts/ContextProvider';
 
@@ -109,7 +113,7 @@ const Sidebar = () => {
                 })}
                 className={({ isActive }) => (isActive ? activeLink : normalLink)}
               >
-                <RiContactsLine />
+                <MdOutlineCategory />
                 <span className="capitalize ">Category</span>
               </NavLink>
               <NavLink
@@ -121,7 +125,7 @@ const Sidebar = () => {
                 })}
                 className={({ isActive }) => (isActive ? activeLink : normalLink)}
               >
-                <RiContactsLine />
+                <TbCategory />
                 <span className="capitalize ">Sub Category</span>
               </NavLink>
               <NavLink
@@ -133,7 +137,7 @@ const Sidebar = () => {
                 })}
                 className={({ isActive }) => (isActive ? activeLink : normalLink)}
               >
-                <RiContactsLine />
+                <MdOutlineMiscellaneousServices />
                 <span className="capitalize">Service</span>
               </NavLink>
               <NavLink
@@ -145,7 +149,7 @@ const Sidebar = () => {
                 })}
                 className={({ isActive }) => (isActive ? activeLink : normalLink)}
               >
-                <RiContactsLine />
+                <GrContact />
                 <span className="capitalize">ContactUs</span>
               </NavLink>
             </div>
